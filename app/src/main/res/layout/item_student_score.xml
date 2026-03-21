@@ -53,6 +53,25 @@
             app:layout_constraintTop_toTopOf="@id/student_reg_id"
             tools:text="Male" />
 
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/switch_registered"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/student_reg_id"
+            tools:checked="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Registered"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/switch_registered"
+            app:layout_constraintStart_toEndOf="@id/switch_registered"
+            app:layout_constraintTop_toTopOf="@id/switch_registered" />
+
         <LinearLayout
             android:id="@+id/score_container"
             android:layout_width="wrap_content"

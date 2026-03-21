@@ -36,6 +36,20 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (!UserRepository.isUserLoggedIn()) {
+            redirectToLogin()
+        }
+    }
+
+    private fun redirectToLogin() {
+        val intent = Intent(this, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish()
+    }
+
     private fun setupViewModel() {
         viewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
     }
@@ -82,10 +96,7 @@ class MainActivity : AppCompatActivity() {
     private fun performLogout() {
         // Clear user data and navigate to LoginActivity
         UserRepository.clearUserData()
-        val intent = Intent(this, LoginActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(intent)
-        finish()
+        redirectToLogin()
     }
 
     private fun showFragment(fragment: Fragment) {

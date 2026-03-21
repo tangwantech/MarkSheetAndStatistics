@@ -13,10 +13,11 @@ class EditScoreDialogFragment : DialogFragment() {
     private val binding get() = _binding!!
     private var currentIndex: Int = -1
     private var students: List<StudentData> = emptyList()
-    private var listener: OnScoreUpdatedListener? = null
+    private var listener: OnStudentUpdateListener? = null
 
-    interface OnScoreUpdatedListener {
+    interface OnStudentUpdateListener {
         fun onScoreUpdated(index: Int, newScore: Double)
+        fun onRegistrationUpdated(index: Int, isRegistered: Boolean)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -24,12 +25,12 @@ class EditScoreDialogFragment : DialogFragment() {
         
         currentIndex = arguments?.getInt(ARG_INDEX) ?: -1
         students = (parentFragment as? TestScoreFragment)?.getCurrentStudents() ?: emptyList()
-        listener = parentFragment as? OnScoreUpdatedListener
+        listener = parentFragment as? OnStudentUpdateListener
 
         updateUI()
 
         binding.btnPrevious.setOnClickListener {
-            if (saveCurrentScore()) {
+            if (saveCurrentData()) {
                 if (currentIndex > 0) {
                     currentIndex--
                     updateUI()
@@ -38,7 +39,7 @@ class EditScoreDialogFragment : DialogFragment() {
         }
 
         binding.btnNext.setOnClickListener {
-            if (saveCurrentScore()) {
+            if (saveCurrentData()) {
                 if (currentIndex < students.size - 1) {
                     currentIndex++
                     updateUI()
@@ -47,7 +48,7 @@ class EditScoreDialogFragment : DialogFragment() {
         }
 
         binding.btnDone.setOnClickListener {
-            if (saveCurrentScore()) {
+            if (saveCurrentData()) {
                 dismiss()
             }
         }
@@ -62,6 +63,7 @@ class EditScoreDialogFragment : DialogFragment() {
             val student = students[currentIndex]
             binding.studentName.text = student.studentName
             binding.scoreInput.setText(student.score.toString())
+            binding.switchRegistered.isChecked = student.isRegistered
             binding.scoreLayout.error = null
             
             binding.btnPrevious.isEnabled = currentIndex > 0
@@ -73,7 +75,7 @@ class EditScoreDialogFragment : DialogFragment() {
         }
     }
 
-    private fun saveCurrentScore(): Boolean {
+    private fun saveCurrentData(): Boolean {
         val scoreText = binding.scoreInput.text.toString()
         if (scoreText.isEmpty()) {
             binding.scoreLayout.error = "Score cannot be empty"
@@ -87,7 +89,10 @@ class EditScoreDialogFragment : DialogFragment() {
         }
         
         binding.scoreLayout.error = null
+        val isRegistered = binding.switchRegistered.isChecked
+        
         listener?.onScoreUpdated(currentIndex, newScore)
+        listener?.onRegistrationUpdated(currentIndex, isRegistered)
         return true
     }
 

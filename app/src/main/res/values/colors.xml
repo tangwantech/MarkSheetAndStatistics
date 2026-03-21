@@ -8,6 +8,10 @@
     <color name="colorPrimaryDark">#023731</color>
     <color name="colorAccent">#00BFA5</color>
 
+    <!-- Status Colors -->
+    <color name="score_pass">#2E7D32</color>
+    <color name="score_fail">#C62828</color>
+
     <!-- Material 3 equivalents (recommended) -->
     <color name="primary">#006A60</color>
     <color name="onPrimary">#FFFFFF</color>

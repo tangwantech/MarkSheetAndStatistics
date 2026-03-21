@@ -14,7 +14,7 @@ import com.example.testscoreandstatistics.repositories.StudentsRepository
 import com.example.testscoreandstatistics.repositories.UserRepository
 import com.example.testscoreandstatistics.viewmodels.MainActivityViewModel
 
-class TestScoreFragment : Fragment(), MarksheetSelectionDialogFragment.OKButtonClick, EditScoreDialogFragment.OnScoreUpdatedListener {
+class TestScoreFragment : Fragment(), MarksheetSelectionDialogFragment.OKButtonClick, EditScoreDialogFragment.OnStudentUpdateListener {
     
     private var _binding: FragmentTestScoreBinding? = null
     private val binding get() = _binding!!
@@ -41,9 +41,16 @@ class TestScoreFragment : Fragment(), MarksheetSelectionDialogFragment.OKButtonC
     }
 
     private fun setupRecyclerView() {
-        adapter = StudentScoreAdapter { position ->
-            EditScoreDialogFragment.newInstance(position).show(childFragmentManager, EditScoreDialogFragment.TAG)
-        }
+        adapter = StudentScoreAdapter(
+            onItemClicked = { position ->
+                if (childFragmentManager.findFragmentByTag(EditScoreDialogFragment.TAG) == null) {
+                    EditScoreDialogFragment.newInstance(position).show(childFragmentManager, EditScoreDialogFragment.TAG)
+                }
+            },
+            onRegistrationChanged = { position, isRegistered ->
+                onStudentRegistrationChanged(position, isRegistered)
+            }
+        )
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = adapter
     }
@@ -94,7 +101,9 @@ class TestScoreFragment : Fragment(), MarksheetSelectionDialogFragment.OKButtonC
     }
 
     private fun showSelectionDialog() {
-        MarksheetSelectionDialogFragment().show(childFragmentManager, MarksheetSelectionDialogFragment.TAG)
+        if (childFragmentManager.findFragmentByTag(MarksheetSelectionDialogFragment.TAG) == null) {
+            MarksheetSelectionDialogFragment().show(childFragmentManager, MarksheetSelectionDialogFragment.TAG)
+        }
     }
 
     override fun onOkButtonClick(params: HashMap<String, String>) {
@@ -135,6 +144,18 @@ class TestScoreFragment : Fragment(), MarksheetSelectionDialogFragment.OKButtonC
         val currentList = viewModel.students.value
         if (currentList != null && index in currentList.indices) {
             currentList[index].score = newScore
+            adapter.notifyItemChanged(index)
+        }
+    }
+
+    override fun onRegistrationUpdated(index: Int, isRegistered: Boolean) {
+        onStudentRegistrationChanged(index, isRegistered)
+    }
+
+    private fun onStudentRegistrationChanged(index: Int, isRegistered: Boolean) {
+        val currentList = viewModel.students.value
+        if (currentList != null && index in currentList.indices) {
+            currentList[index].isRegistered = isRegistered
             adapter.notifyItemChanged(index)
         }
     }

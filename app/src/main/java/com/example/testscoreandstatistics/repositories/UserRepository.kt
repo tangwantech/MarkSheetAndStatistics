@@ -11,6 +11,10 @@ class UserRepository {
             userData = Gson().fromJson(result, UserData::class.java)
         }
 
+        fun isUserLoggedIn(): Boolean {
+            return userData != null && !userData?.sessionToken.isNullOrEmpty()
+        }
+
         fun getSubjectsTaught(): List<String> {
             return userData?.subjectsTaught?.keys?.toList() ?: emptyList()
         }

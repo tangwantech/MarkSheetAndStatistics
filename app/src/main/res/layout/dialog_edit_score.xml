@@ -40,14 +40,23 @@
         app:layout_constraintTop_toBottomOf="@id/student_name_label"
         tools:text="John Doe" />
 
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/switch_registered"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Is Registered"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/student_name" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/score_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:hint="Score"
-        app:layout_constraintTop_toBottomOf="@id/student_name">
+        app:layout_constraintTop_toBottomOf="@id/switch_registered">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/score_input"

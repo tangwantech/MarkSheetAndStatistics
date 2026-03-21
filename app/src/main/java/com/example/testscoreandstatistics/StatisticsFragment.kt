@@ -110,7 +110,9 @@ class StatisticsFragment : Fragment(), MarksheetSelectionDialogFragment.OKButton
     }
 
     private fun showSelectionDialog() {
-        StatisticsSelectionDialogFragment().show(childFragmentManager, StatisticsSelectionDialogFragment.TAG)
+        if (childFragmentManager.findFragmentByTag(StatisticsSelectionDialogFragment.TAG) == null) {
+            StatisticsSelectionDialogFragment().show(childFragmentManager, StatisticsSelectionDialogFragment.TAG)
+        }
     }
 
     override fun onOkButtonClick(params: HashMap<String, String>) {

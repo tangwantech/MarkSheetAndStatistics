@@ -171,6 +171,7 @@ class RestRepository {
             override fun onResponse(call: Call, response: Response) {
                 if (response.isSuccessful) {
                     val responseBody = response.body?.string().toString()
+//                    println(responseBody)
                     val result = JSONObject(responseBody)["result"].toString()
                     listener.onSuccess(result)
                 } else {
