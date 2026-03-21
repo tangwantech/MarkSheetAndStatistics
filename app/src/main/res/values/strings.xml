@@ -1,0 +1,59 @@
+<resources>
+    <string name="app_name">Marksheet and statistics</string>
+    <string name="title_test_score">Marksheet</string>
+    <string name="title_statistics">Statistics</string>
+    <string name="title_logout">Logout</string>
+
+    <string name="select_main_class">Select Main Class</string>
+    <string name="select_subclass">Select Subclass</string>
+    <string name="select_subject">Select Subject</string>
+    <string name="select_sequence">Select Sequence</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="dialog_title">Selection</string>
+    <string name="marksheet_selection_title">Marksheet Selection</string>
+    <string name="statistics_selection_title">Statistics Selection</string>
+
+    <string name="header_class_label">Class</string>
+    <string name="header_subject_label">Subject</string>
+    <string name="header_sequence_label">Sequence</string>
+    <string name="header_teacher_label">Teacher</string>
+    <string name="no_data_selected">No data selected</string>
+    <string name="change_selection">Change</string>
+    <string name="save_scores">Save</string>
+    <string name="teacher_name_format">%1$s</string>
+    <string name="error_invalid_score">Score must be between 0 and 20</string>
+
+    <string-array name="subjects">
+        <item>Biology</item>
+        <item>Chemistry</item>
+    </string-array>
+
+    <string-array name="main_classes">
+        <item>Form 1</item>
+        <item>Form 2</item>
+        <item>Form 3</item>
+        <item>Form 4</item>
+        <item>Form 5</item>
+        <item>Lower Sixth</item>
+        <item>Upper Sixth</item>
+    </string-array>
+
+    <string-array name="subclasses">
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+        <item>Bil</item>
+        <item>Arts</item>
+        <item>Science</item>
+    </string-array>
+
+    <string-array name="sequences">
+        <item>Sequence 1</item>
+        <item>Sequence 2</item>
+        <item>Sequence 3</item>
+        <item>Sequence 4</item>
+        <item>Sequence 5</item>
+        <item>Sequence 6</item>
+    </string-array>
+</resources>

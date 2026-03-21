@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_test_score"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:title="@string/title_test_score" />
+    <item
+        android:id="@+id/navigation_statistics"
+        android:icon="@android:drawable/ic_menu_manage"
+        android:title="@string/title_statistics" />
+    <item
+        android:id="@+id/navigation_logout"
+        android:icon="@android:drawable/ic_lock_power_off"
+        android:title="@string/title_logout" />
+</menu>

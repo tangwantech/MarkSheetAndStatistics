@@ -1,0 +1,29 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.MarksheetAndStatistics" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <!-- Status bar configuration -->
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+        <item name="android:windowLightStatusBar">false</item>
+
+        <!-- Avoid fullscreen issues -->
+        <item name="android:windowFullscreen">false</item>
+    </style>
+
+    <style name="Theme.MarksheetAndStatistics" parent="Base.Theme.MarksheetAndStatistics" />
+
+    <style name="Theme.App.SplashScreen" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/gce_ol_biology_h</item>
+        <item name="postSplashScreenTheme">@style/Theme.MarksheetAndStatistics</item>
+
+        <item name="android:windowFullscreen">false</item>
+        <!-- Ensure status bar is themed correctly during transition -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+</resources>
