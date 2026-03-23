@@ -64,7 +64,7 @@ class TestScoreFragment : Fragment(), MarksheetSelectionDialogFragment.OKButtonC
             }
         }
 
-        viewModel.selectionParams.observe(viewLifecycleOwner) { params ->
+        viewModel.marksheetSelectionParams.observe(viewLifecycleOwner) { params ->
             if (params != null) {
                 updateHeader(params)
             }

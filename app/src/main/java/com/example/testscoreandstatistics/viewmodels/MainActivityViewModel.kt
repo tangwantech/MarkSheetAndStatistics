@@ -17,8 +17,11 @@ class MainActivityViewModel: ViewModel() {
     private val _statistics = MutableLiveData<StatisticsResponse?>()
     val statistics: LiveData<StatisticsResponse?> = _statistics
 
-    private val _selectionParams = MutableLiveData<HashMap<String, String>?>()
-    val selectionParams: LiveData<HashMap<String, String>?> = _selectionParams
+    private val _marksheetSelectionParams = MutableLiveData<HashMap<String, String>?>()
+    val marksheetSelectionParams: LiveData<HashMap<String, String>?> = _marksheetSelectionParams
+
+    private val _statisticsSelectionParams = MutableLiveData<HashMap<String, String>?>()
+    val statisticsSelectionParams: LiveData<HashMap<String, String>?> = _statisticsSelectionParams
 
     private var originalStudentsSize = 0
 
@@ -35,7 +38,7 @@ class MainActivityViewModel: ViewModel() {
     }
 
     fun fetchStudents(params: HashMap<String, String>, listener: StudentsRepository.FetchStudentsListener) {
-        _selectionParams.value = params
+        _marksheetSelectionParams.value = params
         StudentsRepository.fetchStudents(params, object : StudentsRepository.FetchStudentsListener {
             override fun onSuccess(result: List<StudentData>) {
                 originalStudentsSize = result.size
@@ -50,7 +53,7 @@ class MainActivityViewModel: ViewModel() {
     }
 
     fun fetchStatistics(params: HashMap<String, String>, listener: StatisticsRepository.GetStatisticsListener) {
-        _selectionParams.value = params
+        _statisticsSelectionParams.value = params
         
         // Remove subclass from parameters sent to the server for statistics
         val requestParams = HashMap(params)
@@ -70,7 +73,7 @@ class MainActivityViewModel: ViewModel() {
 
     fun saveStudents(listener: StudentsRepository.SaveStudentsListener) {
         val currentStudents = _students.value
-        val params = _selectionParams.value
+        val params = _marksheetSelectionParams.value
         
         if (currentStudents != null && params != null) {
             if (currentStudents.size != originalStudentsSize) {
@@ -81,7 +84,6 @@ class MainActivityViewModel: ViewModel() {
             val saveParams = LinkedHashMap<String, Any>()
             saveParams["sessionToken"] = UserRepository.getSessionToken() ?: ""
             saveParams["mainClass"] = params["mainClass"] ?: ""
-            // Removed subClass from parameters sent to the server
             saveParams["subclass"] = params["subclass"] ?: ""
             saveParams["subject"] = params["subject"] ?: ""
             saveParams["sequence"] = params["sequence"] ?: ""
