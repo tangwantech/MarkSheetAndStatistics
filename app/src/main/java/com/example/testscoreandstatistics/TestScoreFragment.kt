@@ -58,7 +58,10 @@ class TestScoreFragment : Fragment(), MarksheetSelectionDialogFragment.OKButtonC
     private fun setupObservers() {
         viewModel.students.observe(viewLifecycleOwner) { students ->
             if (students != null) {
-                adapter.submitList(students)
+                adapter.submitList(students) {
+                    // Scroll to top after the list is submitted and displayed
+                    binding.recyclerView.scrollToPosition(0)
+                }
                 adapter.notifyDataSetChanged() // Force refresh as we might be updating the same list object
                 binding.emptyView.visibility = if (students.isEmpty()) View.VISIBLE else View.GONE
             }

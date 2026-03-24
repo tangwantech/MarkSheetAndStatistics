@@ -25,6 +25,15 @@
             android:textStyle="bold"
             tools:text="Form 5 Overall" />
 
+        <TextView
+            android:id="@+id/teachers_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textSize="12sp"
+            android:alpha="0.7"
+            tools:text="Teachers: Mr. Smith, Ms. Doe" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"

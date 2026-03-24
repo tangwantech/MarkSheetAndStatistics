@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        app:cardBackgroundColor="@color/secondaryContainer"
         app:cardCornerRadius="16dp"
         app:cardElevation="4dp"
         app:layout_constraintTop_toTopOf="parent"
@@ -44,7 +45,7 @@
                     android:id="@+id/header_teacher"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
+                    android:textColor="@color/onSecondaryContainer"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     tools:text="John Smith" />
@@ -74,7 +75,7 @@
                     android:id="@+id/header_class"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
+                    android:textColor="@color/onSecondaryContainer"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     tools:text="A" />
@@ -108,7 +109,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:textColor="@color/black"
+                    android:textColor="@color/onSecondaryContainer"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     tools:text="Biology" />

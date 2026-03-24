@@ -56,6 +56,8 @@ class MainActivity : AppCompatActivity() {
     
     private fun setupNavigation() {
         binding.navView.setOnItemSelectedListener { item ->
+            if (binding.mainProgress.visibility == View.VISIBLE) return@setOnItemSelectedListener false
+
             when (item.itemId) {
                 R.id.navigation_test_score -> {
                     showFragment(testScoreFragment)
@@ -77,6 +79,7 @@ class MainActivity : AppCompatActivity() {
     private fun setupBackNavigation() {
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
+                if (binding.mainProgress.visibility == View.VISIBLE) return
                 showLogoutConfirmation()
             }
         })
@@ -120,5 +123,6 @@ class MainActivity : AppCompatActivity() {
 
     fun toggleProgress(show: Boolean) {
         binding.mainProgress.visibility = if (show) View.VISIBLE else View.GONE
+        binding.progressOverlay.visibility = if (show) View.VISIBLE else View.GONE
     }
 }

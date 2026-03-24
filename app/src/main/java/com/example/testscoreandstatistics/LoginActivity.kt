@@ -64,6 +64,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun toggleLoading(isLoading: Boolean) {
         binding.loginProgress.visibility = if (isLoading) View.VISIBLE else View.GONE
+        binding.loginOverlay.visibility = if (isLoading) View.VISIBLE else View.GONE
         binding.loginButton.isEnabled = !isLoading
         binding.username.isEnabled = !isLoading
         binding.password.isEnabled = !isLoading

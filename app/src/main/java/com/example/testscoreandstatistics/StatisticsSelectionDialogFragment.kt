@@ -21,6 +21,7 @@ class StatisticsSelectionDialogFragment : DialogFragment() {
         viewModel = ViewModelProvider(requireActivity())[MainActivityViewModel::class.java]
 
         setupInitialDropdowns()
+        restoreCachedSelections()
 
         val dialog = AlertDialog.Builder(requireContext())
             .setTitle(R.string.statistics_selection_title)
@@ -29,7 +30,7 @@ class StatisticsSelectionDialogFragment : DialogFragment() {
                 handleOkClick()
             }
             .setNegativeButton(R.string.cancel, null)
-            .setCancelable(false)
+            .setCancelable(true) // Changed to true to allow independent navigation
             .create()
 
         setupListeners(dialog)
@@ -46,7 +47,7 @@ class StatisticsSelectionDialogFragment : DialogFragment() {
         params["subject"] = binding.subjectDropdown.text.toString()
         params["sequence"] = binding.sequenceDropdown.text.toString()
 
-        val listener = parentFragment as? MarksheetSelectionDialogFragment.OKButtonClick
+        val listener = parentFragment as? OKButtonClick
         listener?.onOkButtonClick(params)
     }
 
@@ -58,6 +59,29 @@ class StatisticsSelectionDialogFragment : DialogFragment() {
         binding.sequenceDropdown.setAdapter(createAdapter(sequences))
 
         binding.mainClassLayout.isEnabled = false
+    }
+
+    private fun restoreCachedSelections() {
+        val params = viewModel.statisticsSelectionParams.value ?: return
+        
+        val subject = params["subject"] ?: ""
+        if (subject.isNotEmpty()) {
+            binding.subjectDropdown.setText(subject, false)
+            
+            val mainClasses = viewModel.getMainClassesForSubject(subject)
+            binding.mainClassDropdown.setAdapter(createAdapter(mainClasses))
+            binding.mainClassLayout.isEnabled = true
+            
+            val mainClass = params["mainClass"] ?: ""
+            if (mainClass.isNotEmpty()) {
+                binding.mainClassDropdown.setText(mainClass, false)
+            }
+        }
+        
+        val sequence = params["sequence"] ?: ""
+        if (sequence.isNotEmpty()) {
+            binding.sequenceDropdown.setText(sequence, false)
+        }
     }
 
     private fun setupListeners(dialog: AlertDialog) {
@@ -102,6 +126,10 @@ class StatisticsSelectionDialogFragment : DialogFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    interface OKButtonClick {
+        fun onOkButtonClick(params: HashMap<String, String>)
     }
 
     companion object {

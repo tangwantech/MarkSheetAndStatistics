@@ -8,12 +8,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.testscoreandstatistics.databinding.FragmentStatisticsBinding
 import com.example.testscoreandstatistics.databinding.ItemStatisticsCardBinding
+import com.example.testscoreandstatistics.datamodels.SequenceStats
 import com.example.testscoreandstatistics.datamodels.StatisticsResponse
 import com.example.testscoreandstatistics.repositories.StatisticsRepository
 import com.example.testscoreandstatistics.viewmodels.MainActivityViewModel
+import com.google.gson.Gson
 import java.util.Locale
 
-class StatisticsFragment : Fragment(), MarksheetSelectionDialogFragment.OKButtonClick {
+class StatisticsFragment : Fragment(), StatisticsSelectionDialogFragment.OKButtonClick {
 
     private var _binding: FragmentStatisticsBinding? = null
     private val binding get() = _binding!!
@@ -41,10 +43,13 @@ class StatisticsFragment : Fragment(), MarksheetSelectionDialogFragment.OKButton
         viewModel.statistics.observe(viewLifecycleOwner) { response ->
             if (response != null) {
                 updateStatisticsUI(response)
+                binding.statisticsScrollView.post {
+                    binding.statisticsScrollView.fullScroll(View.FOCUS_UP)
+                }
             }
         }
 
-        viewModel.selectionParams.observe(viewLifecycleOwner) { params ->
+        viewModel.statisticsSelectionParams.observe(viewLifecycleOwner) { params ->
             if (params != null) {
                 updateHeader(params)
             }
@@ -64,7 +69,7 @@ class StatisticsFragment : Fragment(), MarksheetSelectionDialogFragment.OKButton
 
     private fun updateStatisticsUI(response: StatisticsResponse) {
         binding.statisticsContainer.removeAllViews()
-        val params = viewModel.selectionParams.value ?: return
+        val params = viewModel.statisticsSelectionParams.value ?: return
         val mainClassName = params["mainClass"] ?: return
         val subjectName = params["subject"] ?: return
         val sequenceName = params["sequence"] ?: return
@@ -72,24 +77,46 @@ class StatisticsFragment : Fragment(), MarksheetSelectionDialogFragment.OKButton
         val mainClassData = response.statistics[mainClassName] ?: return
 
         // 1. Display Overall Statistics for Main Class
-        mainClassData.overallStatistics[subjectName]?.get(sequenceName)?.let { stats ->
-            addStatisticsCard("$mainClassName Overall", stats)
+        mainClassData.overallStatistics?.get(subjectName)?.get(sequenceName)?.let { stats ->
+            addStatisticsCard("$mainClassName Overall", null, stats)
         }
 
         // 2. Display Subclass Specific Statistics
-        mainClassData.subclasses.forEach { (subclassName, subjectMap) ->
-            subjectMap[subjectName]?.get(sequenceName)?.let { stats ->
-                addStatisticsCard(subclassName, stats)
+        mainClassData.subclasses?.forEach { (subclassName, subjectMap) ->
+            subjectMap[subjectName]?.let { subclassSubjectData ->
+                // Teachers might be null or missing
+                val teachers = if (subclassSubjectData.containsKey("teachers")) {
+                    subclassSubjectData["teachers"]?.asString
+                } else null
+                
+                // Get statistics for the selected sequence
+                val sequenceJson = subclassSubjectData[sequenceName]
+                
+                if (sequenceJson != null && sequenceJson.isJsonObject) {
+                    try {
+                        val stats = Gson().fromJson(sequenceJson, SequenceStats::class.java)
+                        addStatisticsCard(subclassName, teachers, stats)
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
             }
         }
 
         binding.emptyView.visibility = if (binding.statisticsContainer.childCount == 0) View.VISIBLE else View.GONE
     }
 
-    private fun addStatisticsCard(title: String, stats: com.example.testscoreandstatistics.datamodels.SequenceStats) {
+    private fun addStatisticsCard(title: String, teachers: String?, stats: SequenceStats) {
         val cardBinding = ItemStatisticsCardBinding.inflate(layoutInflater, binding.statisticsContainer, false)
         
         cardBinding.cardTitle.text = title
+        
+        if (!teachers.isNullOrEmpty()) {
+            cardBinding.teachersText.visibility = View.VISIBLE
+            cardBinding.teachersText.text = getString(R.string.teachers_format, teachers)
+        } else {
+            cardBinding.teachersText.visibility = View.GONE
+        }
         
         // Male Stats
         cardBinding.maleSat.text = stats.males.numSat.toString()

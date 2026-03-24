@@ -23,6 +23,9 @@
     <string name="save_scores">Save</string>
     <string name="teacher_name_format">%1$s</string>
     <string name="error_invalid_score">Score must be between 0 and 20</string>
+    <string name="progress_please_wait">Please wait...</string>
+    <string name="progress_signing_in">Signing in...</string>
+    <string name="teachers_format">Teachers: %1$s</string>
 
     <string-array name="subjects">
         <item>Biology</item>

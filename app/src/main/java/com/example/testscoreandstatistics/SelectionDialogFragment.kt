@@ -21,6 +21,7 @@ class SelectionDialogFragment : DialogFragment() {
         viewModel = ViewModelProvider(requireActivity())[MainActivityViewModel::class.java]
 
         setupInitialDropdowns()
+        restoreCachedSelections()
 
         val dialog = AlertDialog.Builder(requireContext())
             .setTitle(R.string.marksheet_selection_title)
@@ -61,6 +62,39 @@ class SelectionDialogFragment : DialogFragment() {
 
         binding.mainClassLayout.isEnabled = false
         binding.subclassLayout.isEnabled = false
+    }
+
+    private fun restoreCachedSelections() {
+        // Defaulting to marksheet params if available
+        val params = viewModel.marksheetSelectionParams.value ?: return
+        
+        val subject = params["subject"] ?: ""
+        if (subject.isNotEmpty()) {
+            binding.subjectDropdown.setText(subject, false)
+            
+            val mainClasses = viewModel.getMainClassesForSubject(subject)
+            binding.mainClassDropdown.setAdapter(createAdapter(mainClasses))
+            binding.mainClassLayout.isEnabled = true
+            
+            val mainClass = params["mainClass"] ?: ""
+            if (mainClass.isNotEmpty()) {
+                binding.mainClassDropdown.setText(mainClass, false)
+                
+                val subclasses = viewModel.getSubclassesForMainClass(subject, mainClass)
+                binding.subclassDropdown.setAdapter(createAdapter(subclasses))
+                binding.subclassLayout.isEnabled = true
+                
+                val subclass = params["subclass"] ?: ""
+                if (subclass.isNotEmpty()) {
+                    binding.subclassDropdown.setText(subclass, false)
+                }
+            }
+        }
+        
+        val sequence = params["sequence"] ?: ""
+        if (sequence.isNotEmpty()) {
+            binding.sequenceDropdown.setText(sequence, false)
+        }
     }
 
     private fun setupListeners(dialog: AlertDialog) {
