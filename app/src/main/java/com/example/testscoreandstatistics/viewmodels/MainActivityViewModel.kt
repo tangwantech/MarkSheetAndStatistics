@@ -8,6 +8,7 @@ import com.example.testscoreandstatistics.datamodels.StatisticsResponse
 import com.example.testscoreandstatistics.repositories.StudentsRepository
 import com.example.testscoreandstatistics.repositories.StatisticsRepository
 import com.example.testscoreandstatistics.repositories.UserRepository
+import com.example.testscoreandstatistics.repositories.RestRepository
 
 class MainActivityViewModel: ViewModel() {
 
@@ -92,6 +93,16 @@ class MainActivityViewModel: ViewModel() {
             StudentsRepository.saveStudents(saveParams, listener)
         } else {
             listener.onError("No students or selection parameters found to save")
+        }
+    }
+
+    fun logoutUser(listener: RestRepository.LogoutListener) {
+        val credentials = UserRepository.getUserCredentials()
+        if (credentials != null) {
+            val restRepository = RestRepository()
+            restRepository.logoutUser(credentials.first, credentials.second, listener)
+        } else {
+            listener.onLogoutFailed("No user credentials found")
         }
     }
 }

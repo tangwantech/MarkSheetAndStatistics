@@ -20,13 +20,14 @@ class RestRepository {
     private val client: OkHttpClient = OkHttpClient.Builder().build()
     private val mediaType = "application/json;charset=utf-8".toMediaType()
 
-    fun loginUser(username: String, password: String, listener: LoginListener) {
+    fun loginUser(username: String, password: String, deviceId: String, listener: LoginListener) {
         val params = mapOf(
             "username" to username,
-            "password" to password
+            "password" to password,
+            "deviceId" to deviceId
         )
         val url = "https://parseapi.back4app.com/functions/login"
-        val requestBody = RequestBody.create(mediaType, JSONObject(params as Map<*, *>).toString())
+        val requestBody = JSONObject(params).toString().toRequestBody(mediaType)
 
         val request = Request.Builder()
             .url(url)
@@ -42,13 +43,24 @@ class RestRepository {
             }
 
             override fun onResponse(call: Call, response: Response) {
+                val responseBody = response.body?.string() ?: ""
                 if (response.isSuccessful) {
-                    val responseBody = response.body?.string().toString()
-                    val result = JSONObject(responseBody)["result"].toString()
-                    UserRepository.updateUserData(result)
-                    listener.onLoginSuccessful()
+                    try {
+                        val result = JSONObject(responseBody)["result"].toString()
+                        UserRepository.updateUserData(result, username to password)
+                        listener.onLoginSuccessful()
+                    } catch (e: Exception) {
+                        listener.onLoginFailed("Error parsing server response")
+                    }
                 } else {
-                    listener.onLoginFailed( "Login failed: Invalid username or password")
+                    val error = try {
+                        val json = JSONObject(responseBody)
+                        if (json.has("error")) json.getString("error")
+                        else "Login failed: Invalid credentials"
+                    } catch (e: Exception) {
+                        "Login failed: Invalid credentials"
+                    }
+                    listener.onLoginFailed(error)
                 }
             }
         })

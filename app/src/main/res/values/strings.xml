@@ -18,7 +18,7 @@
     <string name="header_subject_label">Subject</string>
     <string name="header_sequence_label">Sequence</string>
     <string name="header_teacher_label">Teacher</string>
-    <string name="no_data_selected">No data selected</string>
+    <string name="no_data_selected">No Marksheet to display</string>
     <string name="change_selection">Change</string>
     <string name="save_scores">Save</string>
     <string name="teacher_name_format">%1$s</string>
@@ -26,6 +26,7 @@
     <string name="progress_please_wait">Please wait...</string>
     <string name="progress_signing_in">Signing in...</string>
     <string name="teachers_format">Teachers: %1$s</string>
+    <string name="no_statistics_to_display">No statistics to display</string>
 
     <string-array name="subjects">
         <item>Biology</item>

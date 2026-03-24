@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.testscoreandstatistics.databinding.FragmentStatisticsBinding
@@ -31,10 +32,48 @@ class StatisticsFragment : Fragment(), StatisticsSelectionDialogFragment.OKButto
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupSwipeRefresh()
         setupObservers()
         setupListeners()
 
-        if (viewModel.statistics.value == null) {
+        if (!isHidden && viewModel.statistics.value == null) {
+            showSelectionDialog()
+        }
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (!hidden && viewModel.statistics.value == null) {
+            showSelectionDialog()
+        }
+    }
+
+    private fun setupSwipeRefresh() {
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            refreshData()
+        }
+        binding.swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary)
+    }
+
+    private fun refreshData() {
+        val params = viewModel.statisticsSelectionParams.value
+        if (params != null) {
+            viewModel.fetchStatistics(params, object : StatisticsRepository.GetStatisticsListener {
+                override fun onSuccess(result: StatisticsResponse) {
+                    activity?.runOnUiThread {
+                        binding.swipeRefreshLayout.isRefreshing = false
+                    }
+                }
+
+                override fun onError(error: String?) {
+                    activity?.runOnUiThread {
+                        binding.swipeRefreshLayout.isRefreshing = false
+                        Toast.makeText(requireContext(), error ?: "Error refreshing statistics", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
+        } else {
+            binding.swipeRefreshLayout.isRefreshing = false
             showSelectionDialog()
         }
     }
@@ -84,12 +123,10 @@ class StatisticsFragment : Fragment(), StatisticsSelectionDialogFragment.OKButto
         // 2. Display Subclass Specific Statistics
         mainClassData.subclasses?.forEach { (subclassName, subjectMap) ->
             subjectMap[subjectName]?.let { subclassSubjectData ->
-                // Teachers might be null or missing
                 val teachers = if (subclassSubjectData.containsKey("teachers")) {
                     subclassSubjectData["teachers"]?.asString
                 } else null
                 
-                // Get statistics for the selected sequence
                 val sequenceJson = subclassSubjectData[sequenceName]
                 
                 if (sequenceJson != null && sequenceJson.isJsonObject) {

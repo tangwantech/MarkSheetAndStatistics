@@ -1,7 +1,9 @@
 package com.example.testscoreandstatistics
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -30,17 +32,23 @@ class LoginActivity : AppCompatActivity() {
         super.onResume()
         binding.username.text?.clear()
         binding.password.text?.clear()
+        binding.errorText.visibility = View.GONE
         toggleLoading(false)
     }
 
+    @SuppressLint("HardwareIds")
     private fun setupListeners(){
         binding.loginButton.setOnClickListener {
             val username = binding.username.text.toString()
             val password = binding.password.text.toString()
+            binding.errorText.visibility = View.GONE
+
+            // Unique Device ID to enforce single-session login
+            val deviceId = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)
 
             if (username.isNotEmpty() && password.isNotEmpty()) {
                 toggleLoading(true)
-                viewmodel.loginUser(username, password, object : RestRepository.LoginListener{
+                viewmodel.loginUser(username, password, deviceId, object : RestRepository.LoginListener{
                     override fun onLoginSuccessful() {
                         runOnUiThread {
                             toggleLoading(false)
@@ -51,13 +59,14 @@ class LoginActivity : AppCompatActivity() {
                     override fun onLoginFailed(error: String?) {
                         runOnUiThread {
                             toggleLoading(false)
-                            Toast.makeText(this@LoginActivity, error, Toast.LENGTH_SHORT).show()
+                            binding.errorText.text = error ?: "Login failed"
+                            binding.errorText.visibility = View.VISIBLE
                         }
                     }
                 })
-//                viewmodel.test(username, password)
             } else {
-                Toast.makeText(this, "Please enter username and password", Toast.LENGTH_SHORT).show()
+                binding.errorText.text = "Please enter username and password"
+                binding.errorText.visibility = View.VISIBLE
             }
         }
     }

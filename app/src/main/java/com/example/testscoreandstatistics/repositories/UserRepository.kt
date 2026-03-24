@@ -6,9 +6,13 @@ import com.google.gson.Gson
 class UserRepository {
     companion object{
         private var userData: UserData? = null
+        private var userCredentials: Pair<String, String>? = null
         
-        fun updateUserData(result: String) {
+        fun updateUserData(result: String, credentials: Pair<String, String>? = null) {
             userData = Gson().fromJson(result, UserData::class.java)
+            if (credentials != null) {
+                userCredentials = credentials
+            }
         }
 
         fun isUserLoggedIn(): Boolean {
@@ -35,8 +39,13 @@ class UserRepository {
             return userData?.fullName ?: ""
         }
 
+        fun getUserCredentials(): Pair<String, String>? {
+            return userCredentials
+        }
+
         fun clearUserData() {
             userData = null
+            userCredentials = null
         }
     }
 }

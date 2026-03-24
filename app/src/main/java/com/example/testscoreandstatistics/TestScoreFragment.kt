@@ -32,10 +32,18 @@ class TestScoreFragment : Fragment(), MarksheetSelectionDialogFragment.OKButtonC
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
+        setupSwipeRefresh()
         setupObservers()
         setupListeners()
         
-        if (viewModel.students.value == null) {
+        if (!isHidden && viewModel.students.value == null) {
+            showSelectionDialog()
+        }
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (!hidden && viewModel.students.value == null) {
             showSelectionDialog()
         }
     }
@@ -55,14 +63,44 @@ class TestScoreFragment : Fragment(), MarksheetSelectionDialogFragment.OKButtonC
         binding.recyclerView.adapter = adapter
     }
 
+    private fun setupSwipeRefresh() {
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            refreshData()
+        }
+        // Customize color
+        binding.swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary)
+    }
+
+    private fun refreshData() {
+        val params = viewModel.marksheetSelectionParams.value
+        if (params != null) {
+            viewModel.fetchStudents(params, object : StudentsRepository.FetchStudentsListener {
+                override fun onSuccess(result: List<StudentData>) {
+                    activity?.runOnUiThread {
+                        binding.swipeRefreshLayout.isRefreshing = false
+                    }
+                }
+
+                override fun onError(error: String?) {
+                    activity?.runOnUiThread {
+                        binding.swipeRefreshLayout.isRefreshing = false
+                        Toast.makeText(requireContext(), error ?: "Error refreshing data", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
+        } else {
+            binding.swipeRefreshLayout.isRefreshing = false
+            showSelectionDialog()
+        }
+    }
+
     private fun setupObservers() {
         viewModel.students.observe(viewLifecycleOwner) { students ->
             if (students != null) {
                 adapter.submitList(students) {
-                    // Scroll to top after the list is submitted and displayed
                     binding.recyclerView.scrollToPosition(0)
                 }
-                adapter.notifyDataSetChanged() // Force refresh as we might be updating the same list object
+                adapter.notifyDataSetChanged()
                 binding.emptyView.visibility = if (students.isEmpty()) View.VISIBLE else View.GONE
             }
         }

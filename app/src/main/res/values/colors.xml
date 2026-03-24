@@ -15,17 +15,17 @@
     <!-- Material 3 equivalents (recommended) -->
     <color name="primary">#006A60</color>
     <color name="onPrimary">#FFFFFF</color>
-    <color name="primaryContainer">#74F8E5</color>
+    <color name="primaryContainer">#98F6E8</color>
     <color name="onPrimaryContainer">#00201C</color>
 
-    <color name="secondary">#4A635F</color>
+    <color name="secondary">#84AFA8</color>
     <color name="onSecondary">#FFFFFF</color>
-    <color name="secondaryContainer">#CCE8E2</color>
+    <color name="secondaryContainer">#F2F9F8</color> <!-- Much lighter than original #CCE8E2 -->
     <color name="onSecondaryContainer">#05201C</color>
 
     <color name="tertiary">#456179</color>
     <color name="onTertiary">#FFFFFF</color>
-    <color name="tertiaryContainer">#CCE5FF</color>
+    <color name="tertiaryContainer">#F2F8FF</color> <!-- Much lighter than original #CCE5FF -->
     <color name="onTertiaryContainer">#001D31</color>
 
     <color name="error">#BA1A1A</color>
