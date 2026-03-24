@@ -32,26 +32,52 @@
             tools:text="John Doe" />
 
         <TextView
-            android:id="@+id/student_reg_id"
+            android:id="@+id/label_reg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:alpha="0.7"
-            android:textSize="14sp"
+            android:text="@string/label_reg_id"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/student_name"
+            app:layout_constraintTop_toBottomOf="@id/student_name" />
+
+        <TextView
+            android:id="@+id/student_reg_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/label_reg"
+            app:layout_constraintStart_toEndOf="@id/label_reg"
+            app:layout_constraintTop_toTopOf="@id/label_reg"
             tools:text="REG123456" />
+
+        <TextView
+            android:id="@+id/label_gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/label_gender"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/student_reg_id"
+            app:layout_constraintStart_toEndOf="@id/student_reg_id"
+            app:layout_constraintTop_toTopOf="@id/student_reg_id" />
 
         <TextView
             android:id="@+id/student_gender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:alpha="0.7"
+            android:layout_marginStart="4dp"
+            android:textColor="@color/black"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@id/student_reg_id"
-            app:layout_constraintStart_toEndOf="@id/student_reg_id"
-            app:layout_constraintTop_toTopOf="@id/student_reg_id"
+            app:layout_constraintBottom_toBottomOf="@id/label_gender"
+            app:layout_constraintStart_toEndOf="@id/label_gender"
+            app:layout_constraintTop_toTopOf="@id/label_gender"
             tools:text="Male" />
 
         <com.google.android.material.switchmaterial.SwitchMaterial
@@ -60,15 +86,18 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/student_reg_id"
+            app:layout_constraintTop_toBottomOf="@id/label_reg"
             tools:checked="true" />
 
         <TextView
+            android:id="@+id/label_registered"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="Registered"
+            android:text="@string/label_registered"
+            android:textColor="@color/black"
             android:textSize="12sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/switch_registered"
             app:layout_constraintStart_toEndOf="@id/switch_registered"
             app:layout_constraintTop_toTopOf="@id/switch_registered" />

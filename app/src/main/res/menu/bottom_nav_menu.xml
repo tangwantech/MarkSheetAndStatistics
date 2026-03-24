@@ -6,7 +6,7 @@
         android:title="@string/title_test_score" />
     <item
         android:id="@+id/navigation_statistics"
-        android:icon="@android:drawable/ic_menu_manage"
+        android:icon="@android:drawable/ic_menu_sort_by_size"
         android:title="@string/title_statistics" />
     <item
         android:id="@+id/navigation_logout"

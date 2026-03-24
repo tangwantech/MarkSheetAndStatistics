@@ -28,6 +28,15 @@
     <string name="teachers_format">Teachers: %1$s</string>
     <string name="no_statistics_to_display">No statistics to display</string>
 
+    <string name="label_reg_id">REG ID:</string>
+    <string name="label_gender">GENDER:</string>
+    <string name="label_registered">REGISTERED</string>
+    <string name="label_sat">Sat</string>
+    <string name="label_passed">Passed</string>
+    <string name="label_males">Males</string>
+    <string name="label_females">Females</string>
+    <string name="label_total">Total</string>
+
     <string-array name="subjects">
         <item>Biology</item>
         <item>Chemistry</item>

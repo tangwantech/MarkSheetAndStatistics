@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorPrimary"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             tools:text="Form 5 Overall" />
 
@@ -30,8 +30,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:textSize="12sp"
-            android:alpha="0.7"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
             tools:text="Teachers: Mr. Smith, Ms. Doe" />
 
         <View
@@ -48,30 +49,30 @@
 
             <TableRow android:layout_marginBottom="8dp">
                 <TextView android:text="" />
-                <TextView android:text="Sat" android:gravity="center" android:textStyle="bold" android:textSize="12sp" android:alpha="0.6" />
-                <TextView android:text="Passed" android:gravity="center" android:textStyle="bold" android:textSize="12sp" android:alpha="0.6" />
-                <TextView android:text="%" android:gravity="center" android:textStyle="bold" android:textSize="12sp" android:alpha="0.6" />
+                <TextView android:text="@string/label_sat" android:gravity="center" android:textStyle="bold" android:textSize="14sp" android:textColor="@color/black" />
+                <TextView android:text="@string/label_passed" android:gravity="center" android:textStyle="bold" android:textSize="14sp" android:textColor="@color/black" />
+                <TextView android:text="%" android:gravity="center" android:textStyle="bold" android:textSize="14sp" android:textColor="@color/black" />
             </TableRow>
 
             <TableRow android:layout_marginBottom="4dp">
-                <TextView android:text="Males" android:textStyle="bold" android:textSize="14sp" />
-                <TextView android:id="@+id/male_sat" android:gravity="center" tools:text="15" />
-                <TextView android:id="@+id/male_passed" android:gravity="center" tools:text="10" />
-                <TextView android:id="@+id/male_percent" android:gravity="center" tools:text="66.7%" />
+                <TextView android:text="@string/label_males" android:textStyle="bold" android:textSize="14sp" android:textColor="@color/black" />
+                <TextView android:id="@+id/male_sat" android:gravity="center" android:textSize="14sp" android:textColor="@color/black" tools:text="15" />
+                <TextView android:id="@+id/male_passed" android:gravity="center" android:textSize="14sp" android:textColor="@color/black" tools:text="10" />
+                <TextView android:id="@+id/male_percent" android:gravity="center" android:textSize="14sp" android:textColor="@color/black" tools:text="66.7%" />
             </TableRow>
 
             <TableRow android:layout_marginBottom="4dp">
-                <TextView android:text="Females" android:textStyle="bold" android:textSize="14sp" />
-                <TextView android:id="@+id/female_sat" android:gravity="center" tools:text="12" />
-                <TextView android:id="@+id/female_passed" android:gravity="center" tools:text="8" />
-                <TextView android:id="@+id/female_percent" android:gravity="center" tools:text="75.0%" />
+                <TextView android:text="@string/label_females" android:textStyle="bold" android:textSize="14sp" android:textColor="@color/black" />
+                <TextView android:id="@+id/female_sat" android:gravity="center" android:textSize="14sp" android:textColor="@color/black" tools:text="12" />
+                <TextView android:id="@+id/female_passed" android:gravity="center" android:textSize="14sp" android:textColor="@color/black" tools:text="8" />
+                <TextView android:id="@+id/female_percent" android:gravity="center" android:textSize="14sp" android:textColor="@color/black" tools:text="75.0%" />
             </TableRow>
 
             <TableRow>
-                <TextView android:text="Total" android:textStyle="bold" android:textColor="@color/black" android:textSize="14sp" />
-                <TextView android:id="@+id/total_sat" android:gravity="center" android:textStyle="bold" tools:text="27" />
-                <TextView android:id="@+id/total_passed" android:gravity="center" android:textStyle="bold" tools:text="18" />
-                <TextView android:id="@+id/total_percent" android:gravity="center" android:textStyle="bold" android:textColor="@color/colorPrimary" tools:text="70.4%" />
+                <TextView android:text="@string/label_total" android:textStyle="bold" android:textColor="@color/black" android:textSize="14sp" />
+                <TextView android:id="@+id/total_sat" android:gravity="center" android:textStyle="bold" android:textSize="14sp" android:textColor="@color/black" tools:text="27" />
+                <TextView android:id="@+id/total_passed" android:gravity="center" android:textStyle="bold" android:textSize="14sp" android:textColor="@color/black" tools:text="18" />
+                <TextView android:id="@+id/total_percent" android:gravity="center" android:textStyle="bold" android:textSize="14sp" android:textColor="@color/colorPrimary" tools:text="70.4%" />
             </TableRow>
         </TableLayout>
     </LinearLayout>
