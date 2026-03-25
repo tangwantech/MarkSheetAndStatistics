@@ -18,6 +18,7 @@ class EditScoreDialogFragment : DialogFragment() {
     interface OnStudentUpdateListener {
         fun onScoreUpdated(index: Int, newScore: Double)
         fun onRegistrationUpdated(index: Int, isRegistered: Boolean)
+        fun onDoneEditing()
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -49,6 +50,7 @@ class EditScoreDialogFragment : DialogFragment() {
 
         binding.btnDone.setOnClickListener {
             if (saveCurrentData()) {
+                listener?.onDoneEditing()
                 dismiss()
             }
         }

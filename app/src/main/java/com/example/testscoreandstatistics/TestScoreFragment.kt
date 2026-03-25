@@ -201,6 +201,10 @@ class TestScoreFragment : Fragment(), MarksheetSelectionDialogFragment.OKButtonC
         }
     }
 
+    override fun onDoneEditing() {
+        saveScores()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
