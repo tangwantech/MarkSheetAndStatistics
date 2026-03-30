@@ -23,113 +23,164 @@
             android:layout_height="wrap_content"
             android:padding="20dp">
 
+            <!-- Teacher Section -->
             <LinearLayout
                 android:id="@+id/teacher_container"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toStartOf="@+id/btn_change_selection"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintEnd_toEndOf="parent">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/header_teacher_label"
-                    android:textAllCaps="true"
-                    android:textSize="11sp"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     android:textColor="@color/white"
-                    android:alpha="0.7" />
+                    android:alpha="0.8" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=": "
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:alpha="0.8" />
 
                 <TextView
                     android:id="@+id/header_teacher"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:textColor="@color/white"
-                    android:textSize="18sp"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     tools:text="John Smith" />
             </LinearLayout>
 
+            <!-- Class Section -->
             <LinearLayout
                 android:id="@+id/class_container"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toStartOf="@+id/subject_container"
-                app:layout_constraintHorizontal_weight="1"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/teacher_container"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/teacher_container">
+                app:layout_constraintEnd_toEndOf="parent">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/header_class_label"
-                    android:textAllCaps="true"
-                    android:textSize="11sp"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     android:textColor="@color/white"
-                    android:alpha="0.7" />
+                    android:alpha="0.8" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=": "
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:alpha="0.8" />
 
                 <TextView
                     android:id="@+id/header_class"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:textColor="@color/white"
-                    android:textSize="18sp"
+                    android:textSize="14sp"
                     android:textStyle="bold"
-                    tools:text="A" />
+                    tools:text="Form 5 A" />
             </LinearLayout>
 
+            <!-- Subject Section -->
             <LinearLayout
                 android:id="@+id/subject_container"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:orientation="vertical"
-                android:layout_marginStart="16dp"
-                app:layout_constraintEnd_toStartOf="@+id/btn_change_selection"
-                app:layout_constraintHorizontal_weight="2"
-                app:layout_constraintStart_toEndOf="@id/class_container"
-                app:layout_constraintTop_toBottomOf="@id/teacher_container"
-                tools:ignore="RtlHardcoded">
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/class_container"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/header_subject_label"
-                    android:textAllCaps="true"
-                    android:textSize="11sp"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     android:textColor="@color/white"
-                    android:alpha="0.7" />
+                    android:alpha="0.8" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=": "
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:alpha="0.8" />
 
                 <TextView
                     android:id="@+id/header_subject"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="1"
+                    android:layout_weight="1"
                     android:textColor="@color/white"
-                    android:textSize="18sp"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     tools:text="Biology" />
             </LinearLayout>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_change_selection"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:layout_width="wrap_content"
+            <!-- Enrollment Section -->
+            <LinearLayout
+                android:id="@+id/enrollment_container"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/change_selection"
-                android:textColor="@color/white"
-                app:icon="@android:drawable/ic_menu_edit"
-                app:iconTint="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/divider" />
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/subject_container"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/header_enrollment_label"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:alpha="0.8" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=": "
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:alpha="0.8" />
+
+                <TextView
+                    android:id="@+id/header_enrollment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    tools:text="35" />
+            </LinearLayout>
 
             <View
                 android:id="@+id/divider"
@@ -137,33 +188,80 @@
                 android:layout_height="1dp"
                 android:layout_marginTop="16dp"
                 android:background="#33FFFFFF"
-                app:layout_constraintTop_toBottomOf="@id/class_container" />
+                app:layout_constraintTop_toBottomOf="@id/enrollment_container" />
 
-            <TextView
-                android:id="@+id/header_sequence"
+            <!-- Sequence Section -->
+            <LinearLayout
+                android:id="@+id/sequence_container"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold"
+                android:orientation="horizontal"
                 app:layout_constraintTop_toBottomOf="@id/divider"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/btn_save_scores"
-                tools:text="Sequence 1" />
+                app:layout_constraintEnd_toEndOf="parent">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_save_scores"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/header_sequence_label"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:alpha="0.8" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=": "
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:alpha="0.8" />
+
+                <TextView
+                    android:id="@+id/header_sequence"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    tools:text="Sequence 1" />
+            </LinearLayout>
+
+            <!-- Buttons Section -->
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/save_scores"
-                android:textColor="@color/white"
-                app:icon="@android:drawable/ic_menu_save"
-                app:iconTint="@color/white"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/sequence_container"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/header_sequence"
-                app:layout_constraintBottom_toBottomOf="@id/header_sequence" />
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_change_selection"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/change_selection"
+                    android:textColor="@color/white"
+                    app:icon="@android:drawable/ic_menu_edit"
+                    app:iconTint="@color/white" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_save_scores"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/save_scores"
+                    android:textColor="@color/white"
+                    app:icon="@android:drawable/ic_menu_save"
+                    app:iconTint="@color/white" />
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

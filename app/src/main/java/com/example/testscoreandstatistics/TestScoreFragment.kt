@@ -102,6 +102,9 @@ class TestScoreFragment : Fragment(), MarksheetSelectionDialogFragment.OKButtonC
                 }
                 adapter.notifyDataSetChanged()
                 binding.emptyView.visibility = if (students.isEmpty()) View.VISIBLE else View.GONE
+                
+                // Update enrollment count
+                updateEnrollment(students.size)
             }
         }
 
@@ -175,6 +178,10 @@ class TestScoreFragment : Fragment(), MarksheetSelectionDialogFragment.OKButtonC
         binding.headerClass.text = subclass
         binding.headerSubject.text = subject
         binding.headerSequence.text = sequence
+    }
+
+    private fun updateEnrollment(count: Int) {
+        binding.headerEnrollment.text = count.toString()
     }
 
     fun getCurrentStudents(): List<StudentData> {

@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.testscoreandstatistics.databinding.FragmentStatisticsBinding
@@ -12,6 +14,7 @@ import com.example.testscoreandstatistics.databinding.ItemStatisticsCardBinding
 import com.example.testscoreandstatistics.datamodels.SequenceStats
 import com.example.testscoreandstatistics.datamodels.StatisticsResponse
 import com.example.testscoreandstatistics.repositories.StatisticsRepository
+import com.example.testscoreandstatistics.repositories.UserRepository
 import com.example.testscoreandstatistics.viewmodels.MainActivityViewModel
 import com.google.gson.Gson
 import java.util.Locale
@@ -102,8 +105,10 @@ class StatisticsFragment : Fragment(), StatisticsSelectionDialogFragment.OKButto
     }
 
     private fun updateHeader(params: HashMap<String, String>) {
+        binding.headerTeacher.text = UserRepository.getUserFullName()
         binding.headerClass.text = params["mainClass"] ?: ""
         binding.headerSubject.text = params["subject"] ?: ""
+        binding.headerSequence.text = params["sequence"] ?: ""
     }
 
     private fun updateStatisticsUI(response: StatisticsResponse) {
@@ -159,18 +164,26 @@ class StatisticsFragment : Fragment(), StatisticsSelectionDialogFragment.OKButto
         cardBinding.maleSat.text = stats.males.numSat.toString()
         cardBinding.malePassed.text = stats.males.numPassed.toString()
         cardBinding.malePercent.text = String.format(Locale.getDefault(), "%.1f%%", stats.males.percentagePassed)
+        setPercentageColor(cardBinding.malePercent, stats.males.percentagePassed)
 
         // Female Stats
         cardBinding.femaleSat.text = stats.females.numSat.toString()
         cardBinding.femalePassed.text = stats.females.numPassed.toString()
         cardBinding.femalePercent.text = String.format(Locale.getDefault(), "%.1f%%", stats.females.percentagePassed)
+        setPercentageColor(cardBinding.femalePercent, stats.females.percentagePassed)
 
         // Overall Stats
         cardBinding.totalSat.text = stats.overall.numSat.toString()
         cardBinding.totalPassed.text = stats.overall.numPassed.toString()
         cardBinding.totalPercent.text = String.format(Locale.getDefault(), "%.1f%%", stats.overall.percentagePassed)
+        setPercentageColor(cardBinding.totalPercent, stats.overall.percentagePassed)
 
         binding.statisticsContainer.addView(cardBinding.root)
+    }
+
+    private fun setPercentageColor(textView: TextView, percentage: Double) {
+        val colorRes = if (percentage >= 50.0) R.color.score_pass else R.color.score_fail
+        textView.setTextColor(ContextCompat.getColor(requireContext(), colorRes))
     }
 
     private fun showSelectionDialog() {

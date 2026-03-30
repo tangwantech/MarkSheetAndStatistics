@@ -18,6 +18,7 @@
     <string name="header_subject_label">Subject</string>
     <string name="header_sequence_label">Sequence</string>
     <string name="header_teacher_label">Teacher</string>
+    <string name="header_enrollment_label">Enrollment</string>
     <string name="no_data_selected">No Marksheet to display</string>
     <string name="change_selection">Change</string>
     <string name="save_scores">Save</string>
